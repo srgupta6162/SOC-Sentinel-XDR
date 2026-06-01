@@ -1,0 +1,5 @@
+192.168.1.50 - - [30/May/2026:12:00:00] "GET /index.php?id=1 HTTP/1.1" 200
+192.168.1.60 - - [30/May/2026:12:01:00] "GET /index.php?id=' OR 1=1 -- HTTP/1.1" 200
+192.168.1.70 - - [30/May/2026:12:02:00] "GET /search?q=<script>alert(1)</script> HTTP/1.1" 200
+192.168.1.80 - - [30/May/2026:12:03:00] "GET /../../etc/passwd HTTP/1.1" 404
+192.168.1.90 - - [30/May/2026:12:04:00] "GET /admin/login HTTP/1.1" 200

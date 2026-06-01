@@ -1,0 +1,22 @@
+{
+    "185.220.101.1": {
+        "country": "Germany",
+        "asn": "AS9009",
+        "threat_score": 95,
+        "risk": "HIGH"
+    },
+
+    "45.155.205.233": {
+        "country": "Russia",
+        "asn": "AS49505",
+        "threat_score": 99,
+        "risk": "CRITICAL"
+    },
+
+    "103.21.244.0": {
+        "country": "India",
+        "asn": "AS13335",
+        "threat_score": 40,
+        "risk": "MEDIUM"
+    }
+}

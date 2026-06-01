@@ -1,0 +1,16 @@
+title: SQL Injection
+
+id: SQL001
+
+logsource:
+  category: web
+
+detection:
+  keywords:
+    - "or 1=1"
+    - "'"
+
+level: HIGH
+
+mitre:
+  technique: T1190

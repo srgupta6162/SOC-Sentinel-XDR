@@ -1,0 +1,868 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>SOC Sentinel XDR Dashboard</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+       
+body{
+background:#020617;
+color:#fff;
+font-family:'Segoe UI',sans-serif;
+padding:25px;
+}
+
+.hero{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:25px;
+}
+
+.hero-title{
+    font-size:36px;
+    color:#38bdf8;
+}
+
+.hero-sub{
+    color:#94a3b8;
+    margin-top:5px;
+}
+
+.status{
+    background:#14532d;
+    color:#4ade80;
+    padding:12px 20px;
+    border-radius:25px;
+    font-weight:bold;
+}
+
+.cards{
+    display:grid;
+    grid-template-columns:
+    repeat(auto-fit,minmax(220px,1fr));
+    gap:20px;
+    margin-bottom:25px;
+}
+
+.card{
+
+    background:
+    linear-gradient(
+        135deg,
+        #0f172a,
+        #1e293b
+    );
+
+    border:1px solid #334155;
+
+    border-radius:18px;
+
+    padding:25px;
+
+    text-align:center;
+
+    transition:0.3s;
+}
+
+.card:hover{
+
+    transform:translateY(-6px);
+
+    box-shadow:
+    0 0 20px
+    rgba(
+        56,
+        189,
+        248,
+        0.25
+    );
+}
+
+.card h2{
+    font-size:32px;
+}
+
+.card p{
+    color:#94a3b8;
+}
+
+.chart-grid{
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(3,1fr);
+
+    gap:20px;
+
+    margin-top:20px;
+}
+
+.chart-box{
+
+    background:#0f172a;
+
+    border:1px solid #334155;
+
+    border-radius:18px;
+
+    padding:20px;
+
+    height:300px;
+
+    overflow:hidden;
+}
+
+.chart-grid{
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(3,1fr);
+
+    gap:20px;
+
+    margin-top:20px;
+}
+
+.navbar{
+
+    display:flex;
+
+    gap:15px;
+
+    margin:25px 0;
+
+    flex-wrap:wrap;
+}
+
+.nav-btn{
+
+    text-decoration:none;
+
+    color:white;
+
+    background:
+    linear-gradient(
+        135deg,
+        #1e293b,
+        #0f172a
+    );
+
+    padding:12px 20px;
+
+    border-radius:12px;
+
+    border:1px solid #334155;
+
+    transition:0.3s;
+
+    font-weight:600;
+}
+
+.nav-btn:hover{
+
+    background:#38bdf8;
+
+    color:black;
+
+    transform:
+    translateY(-3px);
+
+    box-shadow:
+    0 0 15px
+    rgba(
+        56,
+        189,
+        248,
+        0.4
+    );
+}
+
+.critical{
+    color:#dc2626;
+    font-weight:bold;
+}
+
+.high{
+    color:#ef4444;
+    font-weight:bold;
+}
+
+.medium{
+    color:#f59e0b;
+    font-weight:bold;
+}
+
+.low{
+    color:#22c55e;
+    font-weight:bold;
+}
+
+.table-wrapper{
+
+    overflow-x:auto;
+
+    margin-bottom:25px;
+
+    border-radius:12px;
+
+    border:1px solid #334155;
+}
+
+table{
+
+    width:100%;
+
+    border-collapse:collapse;
+
+    table-layout:fixed;
+
+    background:#0f172a;
+
+    border-radius:12px;
+
+    overflow:hidden;
+}
+
+th{
+
+    background:#38bdf8;
+
+    color:black;
+
+    padding:14px;
+
+    text-align:center;
+
+    font-weight:bold;
+}
+
+td{
+
+    padding:12px;
+
+    text-align:center;
+
+    border-bottom:1px solid #334155;
+
+    color:#e2e8f0;
+}
+
+tr:hover{
+
+    background:#1e293b;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="hero">
+
+    <div>
+
+        <div class="hero-title">
+            🛡 SOC Sentinel XDR
+        </div>
+
+        <div class="hero-sub">
+            Real-Time Threat Monitoring &
+            Incident Response Platform
+        </div>
+
+    </div>
+
+    <div class="status">
+
+        🟢 Monitoring Active
+
+    </div>
+
+</div>
+
+<div class="navbar">
+
+    <a href="/" class="nav-btn">
+        🏠 Dashboard
+    </a>
+
+    <a href="/incidents" class="nav-btn">
+        🚨 Incidents
+    </a>
+
+    <a href="/upload" class="nav-btn">
+        📤 Upload Logs
+    </a>
+
+    <a href="/generate-report" class="nav-btn">
+        📄 PDF Report
+    </a>
+
+</div>
+
+
+
+<div class="cards">
+
+    <div class="card">
+        <h2>📥 {{ total_events }}</h2>
+        <p>Total Events</p>
+    </div>
+
+    <div class="card">
+        <h2>🚨 {{ total_alerts }}</h2>
+        <p>Total Alerts</p>
+    </div>
+
+    <div class="card">
+        <h2>🎯 {{ unique_attackers }}</h2>
+        <p>Unique Attackers</p>
+    </div>
+
+    <div class="card">
+        <h2>📜 {{ sigma_rules }}</h2>
+        <p>Sigma Rules</p>
+    </div>
+
+    <div class="card">
+        <h2>🟢</h2>
+        <p>Monitoring Active</p>
+    </div>
+
+</div>
+
+<div class="chart-box">
+
+    <h2>🚨 Live Alert Feed</h2>
+
+   <div id="live-alerts" style="max-height:250px; overflow-y:auto;">
+
+{% for alert in alerts[:5] %}
+
+<div style="
+padding:10px;
+margin-bottom:10px;
+background:#1e293b;
+border-left:4px solid #ef4444;
+border-radius:8px;
+">
+
+<strong>🚨 {{ alert[1] }}</strong>
+
+<br>
+
+IP: {{ alert[2] }}
+
+</div>
+
+{% endfor %}
+
+</div>
+
+</div>
+
+
+<!-- ALERTS -->
+
+<h2>🚨 Recent Alerts</h2>
+
+<div class="table-wrapper">
+<table>
+
+<tr>
+
+    <th>Severity</th>
+    <th>Rule</th>
+    <th>IP</th>
+    <th>Source</th>
+    <th>Timestamp</th>
+
+</tr>
+
+{% for alert in alerts[:20] %}
+
+<tr>
+
+<td>
+
+{% if alert[0] == "CRITICAL" %}
+<span class="critical">🔴 CRITICAL</span>
+
+{% elif alert[0] == "HIGH" %}
+<span class="high">🔴 HIGH</span>
+
+{% elif alert[0] == "MEDIUM" %}
+<span class="medium">🟠 MEDIUM</span>
+
+{% else %}
+<span class="low">🟢 LOW</span>
+
+{% endif %}
+
+</td>
+
+<td>{{ alert[1] }}</td>
+
+<td>{{ alert[2] }}</td>
+
+<td>{{ alert[4] }}</td>
+
+<td>{{ alert[5] }}</td>
+
+</tr>
+
+{% endfor %}
+
+</table>
+</div>
+
+<!-- THREAT INTEL -->
+
+<h2 style="
+margin-top:25px;
+margin-bottom:10px;
+color:#38bdf8;
+">
+🌍 Threat Intelligence
+</h2>
+<div class="table-wrapper">
+<table>
+
+<tr>
+
+    <th style="width:25%">IP</th>
+
+    <th style="width:20%">Country</th>
+
+    <th style="width:20%">ASN</th>
+
+    <th style="width:15%">Threat Score</th>
+
+    <th style="width:20%">Risk</th>
+    
+</tr>
+
+{% for alert in alerts %}
+
+<tr>
+
+<td>{{ alert[2] }}</td>
+
+<td>{{ alert[9] }}</td>
+
+<td>{{ alert[10] }}</td>
+
+<td>
+
+{% if alert[11] >= 80 %}
+
+<span style="
+color:#ef4444;
+font-weight:bold;
+">
+{{ alert[11] }}
+</span>
+
+{% elif alert[11] >= 50 %}
+
+<span style="
+color:#f59e0b;
+font-weight:bold;
+">
+{{ alert[11] }}
+</span>
+
+{% else %}
+
+<span style="
+color:#22c55e;
+font-weight:bold;
+">
+{{ alert[11] }}
+</span>
+
+{% endif %}
+
+</td>
+
+<td>
+
+{% if alert[12] == "CRITICAL" %}
+<span class="critical">🔴 CRITICAL</span>
+
+{% elif alert[12] == "HIGH" %}
+<span class="high">🔴 HIGH</span>
+
+{% elif alert[12] == "MEDIUM" %}
+<span class="medium">🟠 MEDIUM</span>
+
+{% else %}
+<span class="low">🟢 LOW</span>
+
+{% endif %}
+
+</td>
+
+</tr>
+
+{% endfor %}
+
+</table>
+</div>
+
+<!-- MITRE ATT&CK -->
+
+<h2>🎯 MITRE ATT&CK Mapping</h2>
+
+<div class="table-wrapper">
+<table>
+
+<tr>
+    <th>Technique</th>
+    <th>Name</th>
+    <th>Tactic</th>
+</tr>
+
+{% for alert in alerts %}
+
+<tr>
+
+<td>{{ alert[13] }}</td>
+<td>{{ alert[14] }}</td>
+<td>{{ alert[15] }}</td>
+
+</tr>
+
+{% endfor %}
+
+</table>
+</div>
+
+<!-- TOP ATTACKERS -->
+
+<h2>🎯 Top Attackers</h2>
+
+<div class="table-wrapper">
+<table>
+
+<tr>
+
+    <th>IP Address</th>
+
+    <th>Alert Count</th>
+
+</tr>
+
+{% for attacker in top_attackers %}
+
+<tr>
+
+<td>{{ attacker[0] }}</td>
+
+<td>{{ attacker[1] }}</td>
+
+</tr>
+
+{% endfor %}
+
+</table>
+</div>
+
+<!-- CHART -->
+
+
+<!-- LOG SOURCE CHART -->
+
+<div class="chart-grid">
+
+    <div class="chart-box">
+
+        <h2>📊 Alert Severity</h2>
+
+        <div style="height:250px;">
+         <canvas id="severityChart"></canvas>
+        </div>
+
+    </div>
+
+    <div class="chart-box">
+
+        <h2>📂 Log Sources</h2>
+
+        <canvas
+            id="logChart"
+            height="120">
+        </canvas>
+
+    </div>
+
+    <div class="chart-box">
+
+        <h2>🎯 MITRE Coverage</h2>
+
+        <canvas
+            id="mitreChart"
+            height="120">
+        </canvas>
+
+    </div>
+
+</div>
+
+<script>
+
+const severityLabels = [
+
+{% for row in severity_data %}
+
+"{{ row[0] }}",
+
+{% endfor %}
+
+];
+
+const severityCounts = [
+
+{% for row in severity_data %}
+
+{{ row[1] }},
+
+{% endfor %}
+
+];
+
+new Chart(
+
+document.getElementById(
+    "severityChart"
+),
+
+{
+    type:"bar",
+
+    data:{
+
+        labels:severityLabels,
+
+        datasets:[{
+
+            label:"Alerts",
+
+            data:severityCounts,
+
+            backgroundColor:[
+                "#ef4444",
+                "#f59e0b",
+                "#22c55e",
+                "#38bdf8",
+                "#8b5cf6"
+            ],
+
+            borderRadius:8
+
+        }]
+    },
+
+    options:{
+
+        responsive:true,
+
+        maintainAspectRatio:false,
+
+        plugins:{
+            legend:{
+                labels:{
+                    color:"white"
+                }
+            }
+        },
+
+        scales:{
+
+            x:{
+                ticks:{
+                    color:"white"
+                }
+            },
+
+            y:{
+                ticks:{
+                    color:"white"
+                }
+            }
+
+        }
+
+    }
+
+}
+
+);
+
+
+// =====================================
+// LOG SOURCE DISTRIBUTION
+// =====================================
+
+const logLabels = [
+
+{% for row in log_type_data %}
+
+"{{ row[0] }}",
+
+{% endfor %}
+
+];
+
+const logCounts = [
+
+{% for row in log_type_data %}
+
+{{ row[1] }},
+
+{% endfor %}
+
+];
+
+new Chart(
+
+document.getElementById(
+    "logChart"
+),
+
+{
+    type:"bar",
+
+    data:{
+
+        labels:logLabels,
+
+        datasets:[{
+
+    label:"Events",
+
+    data:logCounts,
+
+    backgroundColor:[
+        "#06b6d4",
+        "#3b82f6",
+        "#8b5cf6",
+        "#ec4899",
+        "#f59e0b"
+    ],
+
+    borderRadius:8
+
+}]
+    }
+}
+
+);
+
+const mitreLabels = [
+
+{% for row in mitre_data %}
+
+"{{ row[0] }}",
+
+{% endfor %}
+
+];
+
+const mitreCounts = [
+
+{% for row in mitre_data %}
+
+{{ row[1] }},
+
+{% endfor %}
+
+];
+
+new Chart(
+
+document.getElementById(
+    "mitreChart"
+),
+
+{
+    type:"bar",
+
+    data:{
+
+        labels:mitreLabels,
+
+        datasets:[{
+
+    label:"MITRE Techniques",
+
+    data:mitreCounts,
+
+    backgroundColor:[
+        "#ef4444",
+        "#dc2626",
+        "#f97316",
+        "#facc15",
+        "#22c55e",
+        "#38bdf8"
+    ],
+
+    borderRadius:8
+
+}]
+    }
+}
+
+);
+</script>
+
+<!-- SOCKET.IO -->
+<script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+
+<script>
+
+const socket = io();
+
+socket.on(
+    "new_alert",
+    function(alert){
+
+        const feed =
+        document.getElementById(
+            "live-alerts"
+        );
+
+        feed.innerHTML =
+        `
+        <div style="
+            padding:10px;
+            margin-bottom:10px;
+            background:#1e293b;
+            border-left:4px solid #ef4444;
+            border-radius:6px;
+        ">
+            <strong>🚨 ${alert.rule}</strong>
+            <br>
+            IP: ${alert.ip}
+            <br>
+            Severity: ${alert.severity}
+        </div>
+        `
+        + feed.innerHTML;
+
+    }
+);
+
+</script>
+
+
+</body>
+</html>

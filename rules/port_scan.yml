@@ -1,0 +1,15 @@
+
+title: Port Scan Detection
+
+id: PS001
+
+logsource:
+  category: firewall
+
+detection:
+  threshold: 5
+
+level: MEDIUM
+
+mitre:
+  technique: T1046

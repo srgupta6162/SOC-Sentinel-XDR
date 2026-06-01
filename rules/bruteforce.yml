@@ -1,0 +1,14 @@
+title: Brute Force Detection
+
+id: BF001
+
+logsource:
+  category: authentication
+
+detection:
+  threshold: 5
+
+level: HIGH
+
+mitre:
+  technique: T1110

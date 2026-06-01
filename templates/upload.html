@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>SOC Sentinel - Upload Logs</title>
+
+    <style>
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+        }
+
+       body{
+    background:#020617;
+    color:white;
+    font-family:'Segoe UI',sans-serif;
+    padding:30px;
+}
+
+        a{
+            color:#22c55e;
+            text-decoration:none;
+            font-weight:bold;
+        }
+
+       h1{
+
+    color:#38bdf8;
+
+    margin-bottom:25px;
+
+    font-size:36px;
+
+    text-shadow:
+    0 0 15px
+    rgba(56,189,248,0.3);
+}
+
+        .container{
+            max-width:800px;
+            margin:auto;
+        }
+
+        .card{
+
+    background:
+    linear-gradient(
+        135deg,
+        #0f172a,
+        #1e293b
+    );
+
+    border:1px solid #334155;
+
+    padding:30px;
+
+    border-radius:18px;
+
+    margin-top:20px;
+
+    box-shadow:
+    0 0 20px
+    rgba(56,189,248,0.1);
+}   
+
+        .upload-box{
+
+    border:2px dashed #38bdf8;
+
+    padding:50px;
+
+    text-align:center;
+
+    border-radius:16px;
+
+    margin-bottom:25px;
+
+    transition:0.3s;
+}
+
+.upload-box:hover{
+
+    background:#0f172a;
+
+    box-shadow:
+    0 0 20px
+    rgba(56,189,248,0.2);
+}
+
+
+        input[type="file"]{
+            margin-top:20px;
+            color:white;
+        }
+
+        button{
+
+    margin-top:20px;
+
+    background:#38bdf8;
+
+    color:black;
+
+    border:none;
+
+    padding:14px 28px;
+
+    border-radius:10px;
+
+    font-size:16px;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+    transition:0.3s;
+}
+
+      button:hover{
+
+    background:#0ea5e9;
+
+    transform:translateY(-2px);
+
+    box-shadow:
+    0 0 15px
+    rgba(56,189,248,0.4);
+}
+        .supported{
+
+    margin-top:25px;
+
+    background:#0f172a;
+
+    padding:20px;
+
+    border-radius:12px;
+
+    border:1px solid #334155;
+}
+
+        .supported ul{
+            margin-left:20px;
+            margin-top:10px;
+        }
+
+     .note{
+
+    margin-top:25px;
+
+    background:#0f172a;
+
+    border:1px solid #334155;
+
+    padding:20px;
+
+    border-radius:12px;
+
+    color:#cbd5e1;
+}   
+        .navbar{
+
+    display:flex;
+
+    gap:15px;
+
+    margin-bottom:25px;
+}
+
+.nav-btn{
+
+    text-decoration:none;
+
+    color:white;
+
+    background:
+    linear-gradient(
+        135deg,
+        #1e293b,
+        #0f172a
+    );
+
+    padding:12px 20px;
+
+    border-radius:12px;
+
+    border:1px solid #334155;
+
+    transition:0.3s;
+
+    font-weight:600;
+}
+
+.nav-btn:hover{
+
+    background:#38bdf8;
+
+    color:black;
+
+    transform:translateY(-3px);
+
+    box-shadow:
+    0 0 15px
+    rgba(56,189,248,0.4);
+}
+
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+   <div class="navbar">
+
+    <a href="/" class="nav-btn">
+        🏠 Dashboard
+    </a>
+
+    <a href="/incidents" class="nav-btn">
+        🚨 Incidents
+    </a>
+
+    <a href="/upload" class="nav-btn">
+        📂 Upload Logs
+    </a>
+
+</div>
+
+    <h1>📂 SOC Sentinel Log Ingestion Portal</h1>
+
+    <div class="card">
+
+        <div class="upload-box">
+
+            <h2>Upload Security Logs</h2>
+
+            <p style="margin-top:10px;">
+                Upload one file, multiple files, or a ZIP archive.
+            </p>
+
+            <form
+                action="/upload-log"
+                method="POST"
+                enctype="multipart/form-data">
+
+                <input
+                    type="file"
+                    name="logfiles"
+                    multiple
+                    required>
+
+                <br>
+
+                <button type="submit">
+                    🚀 Upload & Analyze
+                </button>
+
+            </form>
+
+        </div>
+
+        <div class="supported">
+
+            <h3>Supported Formats</h3>
+
+            <ul>
+                <li>auth.log</li>
+                <li>firewall.log</li>
+                <li>ufw.log</li>
+                <li>access.log</li>
+                <li>nginx.log</li>
+                <li>apache.log</li>
+                <li>.log files</li>
+                <li>.txt log exports</li>
+                <li>.zip archives</li>
+            </ul>
+
+        </div>
+
+        <div class="note">
+
+            <strong>Splunk-style Ingestion:</strong>
+
+            <p style="margin-top:10px;">
+                SOC Sentinel automatically detects log types,
+                extracts ZIP archives, parses events, stores them
+                in the database, and updates the dashboard.
+            </p>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>

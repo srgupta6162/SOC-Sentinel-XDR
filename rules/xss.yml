@@ -1,0 +1,15 @@
+title: Cross Site Scripting
+
+id: XSS001
+
+logsource:
+  category: web
+
+detection:
+  keywords:
+    - "<script>"
+
+level: HIGH
+
+mitre:
+  technique: T1059.007
