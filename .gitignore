@@ -1,0 +1,17 @@
+venv/
+__pycache__/
+*.pyc
+
+siem.db
+
+uploads/
+test_logs/
+
+*.log
+*.zip
+
+Security_Report.pdf
+reports/
+
+.vscode/
+.idea/
