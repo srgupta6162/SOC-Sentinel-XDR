@@ -55,33 +55,33 @@ SOC Sentinel XDR is a Security Operations Center (SOC) simulation platform desig
 
 ---
 
-## Screenshots
+# Screenshots
 
-### Main Dashboard
+## Main Dashboard
 
-![Dashboard](screenshots/Main_Dasboard1.png)
+![Dashboard](screenshots/Main_Dashboard1.png)
 
-![Dashboard](screenshots/Main_Dasboard2.png)
+![Dashboard](screenshots/Main_Dashboard2.png)
 
-![Dashboard](screenshots/Main_Dasboard3.png)
+![Dashboard](screenshots/Main_Dashboard3.png)
 
-![Dashboard](screenshots/Main_Dasboard4.png)
+![Dashboard](screenshots/Main_Dashboard4.png)
 
-![Dashboard](screenshots/Main_Dasboard5.png)
+![Dashboard](screenshots/Main_Dashboard5.png)
 
-![Dashboard](screenshots/Main_Dasboard6.png)
+![Dashboard](screenshots/Main_Dashboard6.png)
 
-### Incident Management
+## Incident Management
 
 ![Incidents](screenshots/Incidents.png)
 
-### Upload Portal
+## Upload Portal
 
-![Upload](screenshots/Upload_page.png)
+![Upload](screenshots/Upload_Page.png)
 
-### Upload Results
+## Upload Results
 
-![Upload Results](screenshots/uploaded_page.png)
+![Upload Results](screenshots/Uploaded_page.png)
 
 ---
 
