@@ -14,6 +14,7 @@ SOC Sentinel XDR is a Security Operations Center (SOC) simulation platform desig
 * Live Alert Feed
 * Threat Detection Engine
 * Incident Response Workflow
+* Security Analytics Dashboard
 
 ### Threat Detection
 
@@ -28,7 +29,8 @@ SOC Sentinel XDR is a Security Operations Center (SOC) simulation platform desig
 
 * Risk Scoring
 * Threat Score Calculation
-* Internal/External IP Classification
+* Internal / External IP Classification
+* Threat Enrichment
 * MITRE ATT&CK Mapping
 
 ### Security Operations
@@ -37,6 +39,7 @@ SOC Sentinel XDR is a Security Operations Center (SOC) simulation platform desig
 * Alert Correlation
 * PDF Security Reporting
 * Log Upload & Ingestion
+* Live Alert Monitoring
 
 ---
 
@@ -46,8 +49,8 @@ SOC Sentinel XDR is a Security Operations Center (SOC) simulation platform desig
 * Flask
 * Flask-SocketIO
 * SQLite
-* HTML
-* CSS
+* HTML5
+* CSS3
 * JavaScript
 * Chart.js
 * MITRE ATT&CK Framework
@@ -55,40 +58,46 @@ SOC Sentinel XDR is a Security Operations Center (SOC) simulation platform desig
 
 ---
 
-# Screenshots
+## Screenshots
 
-## Main Dashboard
+### Main Dashboard
 
-![Dashboard](screenshots/Main_Dashboard1.png)
+<img src="screenshots/Main_Dashboard1.png" width="900">
 
-![Dashboard](screenshots/Main_Dashboard2.png)
+<img src="screenshots/Main_Dashboard2.png" width="900">
 
-![Dashboard](screenshots/Main_Dashboard3.png)
+<img src="screenshots/Main_Dashboard3.png" width="900">
 
-![Dashboard](screenshots/Main_Dashboard4.png)
+<img src="screenshots/Main_Dashboard4.png" width="900">
 
-![Dashboard](screenshots/Main_Dashboard5.png)
+<img src="screenshots/Main_Dashboard5.png" width="900">
 
-![Dashboard](screenshots/Main_Dashboard6.png)
+<img src="screenshots/Main_Dashboard6.png" width="900">
 
-## Incident Management
+---
 
-![Incidents](screenshots/Incidents.png)
+### Incident Management
 
-## Upload Portal
+<img src="screenshots/Incidents.png" width="900">
 
-![Upload](screenshots/Upload_Page.png)
+---
 
-## Upload Results
+### Log Upload Portal
 
-![Upload Results](screenshots/Uploaded_page.png)
+<img src="screenshots/Upload_Page.png" width="900">
+
+---
+
+### Upload Results
+
+<img src="screenshots/Uploaded_page.png" width="900">
 
 ---
 
 ## Installation
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/SOC-Sentinel-XDR.git
+git clone https://github.com/srgupta6162/SOC-Sentinel-XDR.git
 
 cd SOC-Sentinel-XDR
 
@@ -99,8 +108,25 @@ python app.py
 
 ---
 
+## Future Enhancements
+
+* User Authentication
+* IOC Management
+* Case Management
+* Threat Hunting Module
+* Email Alerting
+* SIEM Integration
+* Splunk Integration
+* Advanced Threat Intelligence Feeds
+
+---
+
 ## Author
 
-Sagar Gupta
+**Sagar Gupta**
 
-Cybersecurity & SOC Analyst Enthusiast
+Cybersecurity Enthusiast | SOC Analyst Aspirant | Blue Team Practitioner
+
+LinkedIn: https://www.linkedin.com/in/sagar-gupta-521179262/
+
+GitHub: https://github.com/srgupta6162
